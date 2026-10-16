@@ -1,0 +1,119 @@
+/* ==========================================================
+   عدّاد الكائنات - التنسيقات
+   ========================================================== */
+
+body {
+  font-family: 'Cairo', system-ui, sans-serif;
+}
+
+/* ---------- الكروت ---------- */
+.card {
+  background: #fff;
+  border: 1px solid #e7e5e4;
+  border-radius: 1.25rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .04);
+}
+.dark .card {
+  background: #1c1917;
+  border-color: #292524;
+}
+
+/* ---------- الأزرار ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .65rem 1.05rem;
+  border-radius: .9rem;
+  font-weight: 700;
+  font-size: .9rem;
+  color: #fff;
+  transition: transform .15s, filter .15s, box-shadow .15s;
+  box-shadow: 0 8px 18px -8px var(--glow, rgba(0, 0, 0, .4));
+  cursor: pointer;
+}
+.btn:hover {
+  filter: brightness(1.07);
+  transform: translateY(-1px);
+}
+.btn:active {
+  transform: scale(.97);
+}
+.btn:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+  transform: none;
+}
+.btn-sm {
+  padding: .4rem .75rem;
+  font-size: .78rem;
+  border-radius: .65rem;
+}
+
+.btn-sky     { background: linear-gradient(135deg, #0ea5e9, #2563eb); --glow: rgba(37, 99, 235, .45); }
+.btn-emerald { background: linear-gradient(135deg, #10b981, #059669); --glow: rgba(16, 185, 129, .45); }
+.btn-amber   { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #422006; --glow: rgba(245, 158, 11, .45); }
+.btn-violet  { background: linear-gradient(135deg, #a78bfa, #7c3aed); --glow: rgba(124, 58, 237, .45); }
+.btn-rose    { background: linear-gradient(135deg, #fb7185, #e11d48); --glow: rgba(225, 29, 72, .45); }
+.btn-stone   { background: #fff; color: #44403c; border: 1px solid #d6d3d1; box-shadow: none; }
+.dark .btn-stone { background: #292524; color: #e7e5e4; border-color: #44403c; }
+
+/* ---------- الحقول ---------- */
+.field {
+  width: 100%;
+  border-radius: .8rem;
+  border: 1px solid #d6d3d1;
+  background: #fff;
+  padding: .6rem .8rem;
+  outline: none;
+  transition: box-shadow .15s, border-color .15s;
+}
+.field:focus {
+  border-color: #f97316;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, .18);
+}
+.dark .field {
+  background: #1c1917;
+  border-color: #44403c;
+  color: #f5f5f4;
+}
+
+/* ---------- التبويبات ---------- */
+.tab {
+  padding: .5rem 1rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: .9rem;
+  color: #78716c;
+  transition: .2s;
+}
+.tab.active {
+  background: #1c1917;
+  color: #fff;
+}
+.dark .tab.active {
+  background: #f5f5f4;
+  color: #1c1917;
+}
+
+/* ---------- السحب والإفلات ---------- */
+.drop-active {
+  border-color: #f97316 !important;
+  background: rgba(249, 115, 22, .07);
+}
+
+/* ---------- الحركات ---------- */
+.spin {
+  animation: spin .8s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.fade-in {
+  animation: fi .35s ease both;
+}
+@keyframes fi {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
