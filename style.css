@@ -1,5 +1,5 @@
 /* ==========================================================
-   عدّاد الكائنات - التنسيقات
+   عدّاد الكائنات - التنسيقات (v2)
    ========================================================== */
 
 body {
@@ -94,6 +94,79 @@ body {
 .dark .tab.active {
   background: #f5f5f4;
   color: #1c1917;
+}
+
+/* ---------- الشيبس (الفلاتر والأنواع المتعلّمة) ---------- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .45rem .9rem;
+  border-radius: 999px;
+  font-size: .82rem;
+  font-weight: 700;
+  border: 1px solid #d6d3d1;
+  background: #fff;
+  color: #44403c;
+  transition: all .15s;
+  cursor: pointer;
+}
+.chip:hover {
+  border-color: #f97316;
+  transform: translateY(-1px);
+}
+.chip.active {
+  background: linear-gradient(135deg, #f97316, #e11d48);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 8px 16px -8px rgba(225, 29, 72, .55);
+}
+.chip b {
+  background: rgba(0, 0, 0, .08);
+  border-radius: 999px;
+  padding: 0 .45rem;
+  font-size: .7rem;
+}
+.chip.active b {
+  background: rgba(255, 255, 255, .25);
+}
+.dark .chip {
+  background: #292524;
+  color: #e7e5e4;
+  border-color: #44403c;
+}
+
+/* ---------- حالة الموديل ---------- */
+.pill {
+  padding: .3rem .75rem;
+  border-radius: 999px;
+  font-size: .72rem;
+  font-weight: 800;
+  transition: all .2s;
+}
+.pill-idle { background: #f5f5f4; color: #78716c; }
+.pill-busy { background: #fef3c7; color: #b45309; animation: pulse 1.4s ease-in-out infinite; }
+.pill-ok   { background: #d1fae5; color: #047857; }
+.pill-err  { background: #ffe4e6; color: #be123c; }
+.dark .pill-idle { background: #292524; color: #a8a29e; }
+.dark .pill-busy { background: rgba(251, 191, 36, .12); color: #fcd34d; }
+.dark .pill-ok   { background: rgba(16, 185, 129, .15); color: #6ee7b7; }
+.dark .pill-err  { background: rgba(244, 63, 94, .15); color: #fda4af; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: .55; }
+}
+
+/* ---------- منطقة العرض ---------- */
+#stage {
+  touch-action: none;
+  user-select: none;
+}
+#stage.teach-on {
+  cursor: crosshair;
+  box-shadow: 0 0 0 3px #fbbf24;
+  border-radius: 1rem;
 }
 
 /* ---------- السحب والإفلات ---------- */

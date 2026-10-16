@@ -28,7 +28,7 @@
       </div>
       <div>
         <h1 class="text-base font-extrabold leading-tight">عدّاد الكائنات</h1>
-        <p class="text-xs text-stone-500 dark:text-stone-400">اعد اللي في الصورة في ثواني</p>
+        <p class="text-xs text-stone-500 dark:text-stone-400">بيعد ويوصف ويتعلّم من تصحيحك</p>
       </div>
     </div>
     <div class="flex items-center gap-2">
@@ -48,8 +48,14 @@
   <section id="view-detect" class="grid gap-5 lg:grid-cols-3">
 
     <div class="space-y-4 lg:col-span-2">
+
       <!-- منطقة العرض -->
       <div class="card p-3">
+        <div class="mb-2 flex items-center justify-between px-1">
+          <span id="modeLabel" class="text-xs font-bold text-stone-500">جاهز</span>
+          <span id="statusPill" class="pill pill-idle">الموديل لسه ما اتحمّلش</span>
+        </div>
+
         <div id="dropZone" class="relative flex min-h-[320px] items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-stone-300 bg-stone-100 transition dark:border-stone-700 dark:bg-stone-900">
           <div id="placeholder" class="p-8 text-center">
             <div class="mx-auto mb-4 grid h-16 w-16 place-items-center rounded-2xl bg-orange-100 text-orange-600 dark:bg-orange-500/10 dark:text-orange-300">
@@ -69,21 +75,76 @@
       </div>
 
       <!-- أدوات التحكم -->
-      <div class="card p-4">
+      <div class="card space-y-4 p-4">
         <div class="flex flex-wrap gap-2">
           <button id="fileBtn" class="btn btn-sky">اختيار ملف</button>
           <button id="camPhotoBtn" class="btn btn-emerald">تصوير بالكاميرا</button>
           <button id="camBtn" class="btn btn-violet">كاميرا مباشرة</button>
-          <button id="pauseBtn" class="btn btn-amber">إيقاف العد المؤقت</button>
+          <button id="freezeBtn" class="btn btn-stone">تجميد الصورة</button>
+          <button id="deepBtn" class="btn btn-amber">تحليل عميق</button>
+          <button id="pauseBtn" class="btn btn-stone">إيقاف العد المؤقت</button>
           <button id="snapBtn" class="btn btn-stone">لقطة شاشة</button>
           <button id="clearBtn" class="btn btn-stone">مسح</button>
         </div>
 
-        <div class="mt-5 flex items-center gap-4">
+        <div class="flex items-center gap-4">
           <label for="threshold" class="whitespace-nowrap text-sm font-bold">حساسية الكشف</label>
           <input id="threshold" type="range" min="10" max="95" value="50" class="w-full accent-orange-500">
           <span id="thresholdVal" class="w-12 text-end font-extrabold tabular-nums">50%</span>
         </div>
+
+        <label class="flex cursor-pointer items-center gap-3 text-sm font-bold">
+          <input id="autoCam" type="checkbox" class="h-5 w-5 accent-emerald-500">
+          شغّل الكاميرا تلقائياً أول ما أفتح الصفحة
+        </label>
+      </div>
+
+      <!-- الفلاتر -->
+      <div class="card space-y-3 p-4">
+        <h3 class="font-extrabold">نوع اللي عايز أعدّه</h3>
+        <div id="presetBar" class="flex flex-wrap gap-2">
+          <button class="chip" data-preset="all">الكل</button>
+          <button class="chip" data-preset="people">أشخاص</button>
+          <button class="chip" data-preset="vehicles">عربيات</button>
+          <button class="chip" data-preset="seating">كراسي وكنب</button>
+          <button class="chip" data-preset="learned">اللي اتعلمته</button>
+        </div>
+      </div>
+
+      <!-- التعليم -->
+      <div class="card space-y-4 p-4">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h3 class="font-extrabold">علّم الموديل</h3>
+          <span class="text-xs font-bold text-stone-500">أمثلة محفوظة: <span id="learnTotal" class="tabular-nums">0</span></span>
+        </div>
+        <p class="text-sm leading-relaxed text-stone-500 dark:text-stone-400">
+          اكتب اسم النوع (مثلاً: كرتونة، ورق شجر)، واضغط "تعليم منطقة"، وبعدين اسحب مستطيل على الجزء ده في الصورة.
+          كل مستطيل بيتحفظ كمثال، وكل ما تعلّم أمثلة أكتر الموديل بيتعرف أدق.
+        </p>
+
+        <div class="grid gap-2 sm:grid-cols-[1fr_auto]">
+          <input id="labelInput" list="labelList" class="field" placeholder="اسم النوع: كرتونة، ورق شجر، ...">
+          <datalist id="labelList"></datalist>
+          <button id="teachBtn" class="btn btn-amber justify-center">تعليم منطقة</button>
+        </div>
+
+        <div id="teachHint" class="hidden rounded-xl bg-amber-50 p-3 text-sm font-bold text-amber-800 dark:bg-amber-500/10 dark:text-amber-300">
+          الصورة متجمدة. اسحب مستطيل على الشيء ده، وكل مستطيل بيتحفظ مباشرة.
+        </div>
+
+        <div id="learnChips" class="flex flex-wrap gap-2"></div>
+
+        <label class="block">
+          <span class="mb-1 flex justify-between text-sm font-bold">دقة التعرّف على اللي اتعلمته <span id="learnSimVal">80%</span></span>
+          <input id="learnSim" type="range" min="60" max="97" value="80" class="w-full accent-amber-500">
+        </label>
+
+        <div class="grid grid-cols-2 gap-2 sm:grid-cols-4">
+          <button id="exportLearnBtn" class="btn btn-sky justify-center">تصدير الأمثلة</button>
+          <button id="importLearnBtn" class="btn btn-violet justify-center">استيراد أمثلة</button>
+          <button id="clearLearnBtn" class="btn btn-rose justify-center sm:col-span-2">مسح كل التعلّم</button>
+        </div>
+        <input id="importLearnInput" type="file" accept="application/json" class="hidden">
       </div>
 
       <input id="fileInput" type="file" accept="image/*,video/*" class="hidden">
@@ -92,6 +153,14 @@
 
     <!-- لوحة الإحصائيات -->
     <aside class="space-y-4">
+
+      <!-- الوصف التلقائي -->
+      <div class="card bg-gradient-to-br from-sky-50 to-violet-50 p-5 dark:from-stone-900 dark:to-stone-900">
+        <p class="mb-2 text-xs font-bold text-stone-500 dark:text-stone-400">الوصف التلقائي</p>
+        <p id="describeText" class="text-base font-bold leading-relaxed">ارفع صورة أو شغّل الكاميرا عشان أوصف المشهد.</p>
+        <p id="sceneText" class="mt-2 text-xs text-stone-500 dark:text-stone-400"></p>
+      </div>
+
       <div class="card bg-gradient-to-br from-orange-50 to-rose-50 p-5 dark:from-stone-900 dark:to-stone-900">
         <p class="text-sm font-bold text-stone-500 dark:text-stone-400">إجمالي العناصر في الإطار</p>
         <p id="totalCount" class="mt-1 text-6xl font-extrabold tabular-nums">0</p>
@@ -218,6 +287,7 @@
 <!-- ===== مكتبات الذكاء الاصطناعي ===== -->
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@2.2.3/dist/coco-ssd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.1/dist/mobilenet.min.js"></script>
 
 </body>
 </html>
